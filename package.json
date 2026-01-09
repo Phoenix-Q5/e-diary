@@ -1,0 +1,11 @@
+{
+  "name": "diary-app",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "npm run -w @diary/api dev & npm run -w @diary/web dev",
+    "build": "npm run -w @diary/api build && npm run -w @diary/web build",
+    "lint": "npm run -w @diary/api lint && npm run -w @diary/web lint",
+    "format": "npm run -w @diary/api format && npm run -w @diary/web format"
+  }
+}
