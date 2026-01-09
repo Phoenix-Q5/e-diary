@@ -2,10 +2,12 @@
 
 ## Environment variables (required)
 - `PORT`
-- `MONGODB_URI`
+- `MONGO_USER`
+- `MONGO_PASSWORD`
+- `MONGO_HOST`
 - `JWT_ACCESS_SECRET`
 - `JWT_REFRESH_SECRET`
-- `CLIENT_ORIGIN` (your web app origin, e.g. https://your-app.vercel.app)
+- `CLIENT_ORIGIN` (Your web app origin, e.g. https://your-app.vercel.app)
 
 ## Notes
 - Refresh token is stored in an **httpOnly cookie**.
