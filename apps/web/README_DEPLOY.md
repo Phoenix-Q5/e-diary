@@ -1,7 +1,7 @@
 # Deploy Web
 
 ## Environment variables
-- `VITE_API_URL` – your API base URL (e.g. https://diary-api.onrender.com)
+- `VITE_API_URL` – your API base URL (e.g. https://e-diary-k9mq.onrender.com)
 
 ## Build
 ```bash
