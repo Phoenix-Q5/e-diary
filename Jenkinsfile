@@ -29,10 +29,13 @@ pipeline {
 
     stage("Docker Build") {
       steps {
+      sh '''
+      set -e
+      export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+      which docker
+      docker --version
+      '''
         sh """
-          export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-          docker --version
-      
           set -e
           docker build \
             -f apps/api/Dockerfile \
