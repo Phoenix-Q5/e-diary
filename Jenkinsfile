@@ -85,7 +85,11 @@ pipeline {
 
   post {
     always {
-      sh "docker image prune -f || true"
+      sh """ 
+      set -e
+      export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
+      docker image prune -f || true 
+      """
       cleanWs()
     }
   }
