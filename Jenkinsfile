@@ -83,14 +83,14 @@ pipeline {
     }
   }
 
-  post {
-    always {
-      sh """ 
-      set -e
-      export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
-      docker image prune -f || true 
-      """
-      cleanWs()
-    }
-  }
+  // post {
+  //   always {
+  //     sh """ 
+  //     set -e
+  //     export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
+  //     docker image prune -f || true 
+  //     """
+  //     cleanWs()
+  //   }
+  // }
 }
