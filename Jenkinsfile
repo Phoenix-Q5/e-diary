@@ -38,9 +38,11 @@ pipeline {
       export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
       which docker
       docker --version
+      
       '''
         sh """
           set -e
+          export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
           docker build \
             -f apps/api/Dockerfile \
             -t ${IMAGE_API}:${env.TAG} \
