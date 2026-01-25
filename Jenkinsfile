@@ -13,6 +13,8 @@ pipeline {
     DOCKERHUB_CREDS_ID = "docker-creds"
 
     NODE_ENV = "production"
+
+    VITE_API_URL= "http://localhost:8081"
   }
 
   stages {
