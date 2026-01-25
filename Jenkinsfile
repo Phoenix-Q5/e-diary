@@ -23,6 +23,8 @@ pipeline {
             git branch: 'main',
             url: 'https://github.com/Phoenix-Q5/e-diary.git',
             credentialsId: 'github-creds'
+          env.GIT_SHA = sh(script: "git rev-parse --short=7 HEAD", returnStdout: true).trim()
+          env.TAG = "${env.BUILD_NUMBER}-${env.GIT_SHA}"
         }
       }
     }
@@ -39,14 +41,14 @@ pipeline {
           set -e
           docker build \
             -f apps/api/Dockerfile \
-            -t ${IMAGE_API}:${TAG} \
+            -t ${IMAGE_API}:${env.TAG} \
             -t ${IMAGE_API}:latest \
             apps/api
             
           docker build \
             -f apps/web/Dockerfile \
             --build-arg VITE_API_URL="${VITE_API_URL}" \
-            -t ${IMAGE_WEB}:${TAG} \
+            -t ${IMAGE_WEB}:${env.TAG} \
             -t ${IMAGE_WEB}:latest \
             apps/web
         """
@@ -64,9 +66,9 @@ pipeline {
             set -e
             echo "${DH_TOKEN}" | docker login -u "${DH_USER}" --password-stdin
 
-            docker push ${IMAGE_API}:${TAG}
+            docker push ${IMAGE_API}:${env.TAG}
             docker push ${IMAGE_API}:latest
-            docker push ${IMAGE_WEB}:${TAG}
+            docker push ${IMAGE_WEB}:${env.TAG}
             docker push ${IMAGE_WEB}:latest
 
             docker logout
