@@ -56,13 +56,13 @@ pipeline {
       steps {
         withCredentials([usernamePassword(
           credentialsId: "${DOCKERHUB_CREDS_ID}",
-          usernameVariable: "bhavyanth02",
-          passwordVariable: "Tiger@9959"
+          usernameVariable: "DH_USER",
+          passwordVariable: "DH_TOKEN"
         )]) {
           sh """
             set -e
             export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
-            echo "docker login -u "${bhavyanth02}" --password-stdin
+            echo "\$DH_TOKEN" | docker login -u "\$DH_USER" --password-stdin
 
             docker push ${IMAGE_API}:${env.TAG}
             docker push ${IMAGE_API}:latest
