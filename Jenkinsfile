@@ -68,7 +68,8 @@ pipeline {
         )]) {
           sh """
             set -e
-            echo "${DH_TOKEN}" | docker login -u "${DH_USER}" --password-stdin
+            export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
+            echo "docker login -u "${bhavyanth02}" --password-stdin
 
             docker push ${IMAGE_API}:${env.TAG}
             docker push ${IMAGE_API}:latest
