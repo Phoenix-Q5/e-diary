@@ -13,5 +13,5 @@ export function buildMongoUri(env: {
   const user = encodeURIComponent(env.MONGO_USER);
   const pass = encodeURIComponent(env.MONGO_PASSWORD);
 
-  return `mongodb+srv://${user}:${pass}@${env.MONGO_HOST}/?retryWrites=true&w=majority&appName=java-cluster`;
+  return `mongodb://${user}:${pass}@${env.MONGO_HOST}/?retryWrites=true&w=majority&appName=java-cluster`;
 }
