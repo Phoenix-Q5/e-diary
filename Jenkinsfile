@@ -14,7 +14,7 @@ pipeline {
 
     NODE_ENV = "production"
 
-    VITE_API_URL= "/api"
+    VITE_API_URL= "http://localhost:8082"
   }
 
   stages {
