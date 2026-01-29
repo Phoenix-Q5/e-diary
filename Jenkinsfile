@@ -31,7 +31,7 @@ pipeline {
       }
     }
 
-    stage("Docker Build") {
+    stage("Docker Build API") {
       steps {
       sh """
       set -e  
@@ -41,7 +41,15 @@ pipeline {
             -t ${IMAGE_API}:${env.TAG} \
             -t ${IMAGE_API}:latest \
             apps/api
-            
+        """
+      }
+    }
+
+    stage("Docker Build WEB") {
+      steps {
+      sh """
+      set -e  
+          export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"    
           docker build \
             -f apps/web/Dockerfile \
             --build-arg VITE_API_URL="${VITE_API_URL}" \
