@@ -1,4 +1,4 @@
-const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:8082").replace(/\/$/, "");
+const API_URL = (import.meta.env.VITE_API_URL ?? "https://ediary-api.bhavyanth.com").replace(/\/$/, "");
 
 export type User = {
   id: string;
