@@ -36,7 +36,7 @@ pipeline {
       sh """
       set -e  
           export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"
-          docker build \
+          docker build --no-cache\
             -f apps/api/Dockerfile \
             -t ${IMAGE_API}:${env.TAG} \
             -t ${IMAGE_API}:latest \
@@ -50,7 +50,7 @@ pipeline {
       sh """
       set -e  
           export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:\$PATH"    
-          docker build \
+          docker build --no-cache\
             -f apps/web/Dockerfile \
             --build-arg VITE_API_URL="${VITE_API_URL}" \
             -t ${IMAGE_WEB}:${env.TAG} \

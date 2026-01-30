@@ -1,5 +1,9 @@
 FROM node:20-alpine AS build
 WORKDIR /app
+
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY index.html vite.config.ts tsconfig*.json postcss.config.cjs tailwind.config.cjs ./
