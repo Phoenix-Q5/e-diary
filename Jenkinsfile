@@ -14,7 +14,7 @@ pipeline {
 
     NODE_ENV = "production"
 
-    VITE_API_URL= "http://localhost:8082"
+    VITE_API_URL= "https://ediary-api.bhavyanth.com"
   }
 
   stages {
