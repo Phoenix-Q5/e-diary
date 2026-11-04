@@ -6,7 +6,7 @@ import defaultImage from "../assets/defImage.png";
 export function Shell({ children }: { children: React.ReactNode }) {
   const { state } = useAuth();
   const isAuthed = state.status === "authed";
-  const headerImg = isAuthed ? myImage : defaultImage;
+  const headerImg = isAuthed ? defaultImage : defaultImage;
   const headerTitle = isAuthed ? `${state.user.firstName}'s Diary` : "E-Diary";
   const headerSubtitle = isAuthed ? "My daily notes" : "Write your daily notes with privacy!";
   return (
