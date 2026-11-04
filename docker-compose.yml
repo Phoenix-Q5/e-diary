@@ -1,0 +1,47 @@
+# Requires the shared stack in ../infrastructure (traefik, cloudflared, mongo)
+# and its `proxy` / `infra` networks.
+services:
+  api:
+    build:
+      context: ./apps/api
+    image: bhavyanth02/e-diary-api:latest
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      NODE_ENV: production
+      CLIENT_ORIGIN: https://${WEB_DOMAIN}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set in .env}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?set in .env}
+      ACCESS_TOKEN_TTL_MINUTES: ${ACCESS_TOKEN_TTL_MINUTES:-15}
+      REFRESH_TOKEN_TTL_DAYS: ${REFRESH_TOKEN_TTL_DAYS:-30}
+      MONGO_HOST: ${MONGO_HOST:-mongo:27017}
+      MONGO_USER: ${MONGO_USER:-super}
+      MONGO_PASSWORD: ${MONGO_PASSWORD:-secret}
+      MONGO_OPTIONS: ${MONGO_OPTIONS:-retryWrites=false&authSource=admin&appName=e-diary}
+    networks: [proxy, infra]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.ediary-api.rule=Host(`${API_DOMAIN}`)
+      - traefik.http.services.ediary-api.loadbalancer.server.port=8080
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        VITE_API_URL: https://${API_DOMAIN}
+    image: bhavyanth02/e-diary-web:latest
+    restart: unless-stopped
+    networks: [proxy]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.ediary-web.rule=Host(`${WEB_DOMAIN}`)
+      - traefik.http.services.ediary-web.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+  infra:
+    external: true
+    name: infra

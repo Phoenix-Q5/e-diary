@@ -12,6 +12,7 @@ const EnvSchema = z.object({
   MONGO_HOST: z.string(),
   MONGO_USER: z.string(),
   MONGO_PASSWORD: z.string(),
+  MONGO_OPTIONS: z.string().default("retryWrites=true&w=majority&appName=java-cluster"),
   
   CLIENT_ORIGIN: z.string().url()
 });

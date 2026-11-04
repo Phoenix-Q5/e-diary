@@ -58,3 +58,11 @@ See `apps/api/README_DEPLOY.md` and `apps/web/README_DEPLOY.md`.
 ## Notes about dates & timezone
 Notes are stored by **dateKey = YYYY-MM-DD** in the user's timezone.
 User timezone is stored on the profile and used to compute `dateKey` on the client.
+
+## Docker + Traefik + Cloudflare
+
+Runs on the shared stack in `../infrastructure` (Traefik, cloudflared tunnel, Mongo).
+
+1. Start the infra: `docker network create proxy` (once), then `docker compose up -d` in `../infrastructure` (Mongo user/password default to `super` / `secret`; override via `MONGO_USER` / `MONGO_PASSWORD`).
+2. In the Cloudflare Zero Trust tunnel, add public hostnames for `WEB_DOMAIN` and `API_DOMAIN` pointing to `http://traefik:80`.
+3. `cp .env.example .env`, set the JWT secrets, then `docker compose up -d --build`.
