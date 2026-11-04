@@ -7,7 +7,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const { state } = useAuth();
   const isAuthed = state.status === "authed";
   const headerImg = isAuthed ? myImage : defaultImage;
-  const headerTitle = isAuthed ? "Bhavyanth's Diary" : "E-Diary";
+  const headerTitle = isAuthed ? `${state.user.firstName}'s Diary` : "E-Diary";
   const headerSubtitle = isAuthed ? "My daily notes" : "Write your daily notes with privacy!";
   return (
     <div className="min-h-screen flex flex-col">
